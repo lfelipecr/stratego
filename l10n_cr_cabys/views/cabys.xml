@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cabys_view_tree" model="ir.ui.view">
+        <field name="name">cabys.view.tree</field>
+        <field name="model">cabys</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="description"/>
+                <field name="tax_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cabys_view_form" model="ir.ui.view">
+        <field name="name">cabys.view.form</field>
+        <field name="model">cabys</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="code"/>
+                        <field name="description"/>
+                        <field name="tax_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="cabys_view_search" model="ir.ui.view">
+        <field name="name">cabys.view.search</field>
+        <field name="model">cabys</field>
+        <field name="arch" type="xml">
+            <search/>
+        </field>
+    </record>
+
+    <record id="cabys_action" model="ir.actions.act_window">
+        <field name="name">CAByS</field>
+        <field name="res_model">cabys</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="cabys_menu" name="CAByS" parent="account.account_management_menu" action="cabys_action"/>
+</odoo>

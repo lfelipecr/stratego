@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_move_view_form" model="ir.ui.view">
+        <field name="name">account.move.view.form.inherit.import_move</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="l10n_cr_accounting.account_move_form_view_inherit_fecr_account"/>
+        <field name="arch" type="xml">
+            <button name="action_invoice_sent" position="after">
+                <!-- TODO don't show if is accepted  -->
+                <button type="action" name="%(account_invoice_import_action)d" string="Import Invoice File" states="draft"
+                    context="{
+                        'wizard_default_state': 'update-from-invoice',
+                        'default_invoice_id': id,
+                        'default_partner_id': partner_id}"
+                />
+                <button name="load_xml_data" type="object" string="Cargar datos desde XML" colspan="2"
+                    attrs="{'invisible':['|',
+                        ('tipo_documento','=', 'FEC'),
+                        ('state','!=', 'draft'),
+                        ('move_type','!=','in_invoice')]}"
+                />
+            </button>
+        </field>
+    </record>
+</odoo>
