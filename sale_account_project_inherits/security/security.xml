@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Groups-->
+        <record model="res.groups" id="group_project_task_subscribe">
+            <field name="name">Seguidor en tareas</field>
+        </record>
+    </data>
+</odoo>

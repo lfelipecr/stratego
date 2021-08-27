@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']//form/group/group/field[@name='price_unit']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <label for="product_uom_qty" position="replace">
+                </label>
+                <xpath expr="//field[@name='order_line']//form/group/group/div/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//form/group/group/field[@name='price_unit']" position="after">
+                    <field name="price_cost"/>
+                    <field name="new_qty"/>
+                    <field name="pax_days_hours"/>
+                    <field name="product_uom_qty" string="Cantidad total"/>
+                    <field name="new_subtotal"/>
+                    <field name="supplier_tax_id" options="{'no_create': True}" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]" attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}"/>
+                    <field name="iva_tax_amount"/>
+                    <field name="cost_iva_tax_amount"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//form/group/group/field[@name='tax_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//form/group/group//field[@name='sequence']" position="before">
+                    <field name="fee_profit"/>
+                    <field name="amount_fee"/>
+                    <field name="tax_id" widget="many2many_tags" options="{'no_create': True}" context="{'search_view_ref': 'account.account_tax_view_search'}" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"
+                                                attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}"/>
+                    <field name="price_unit" string="Precio unidad final"/>
+                    <field name="price_subtotal" string="Precio final"/>
+                    <field name="supplier_id"/>
+                </xpath>
+<!--                <xpath expr="//field[@name='order_line']//form/group/group/field[@name='price_subtotal']" position="after">-->
+<!--                    <field name="price_tax"/>-->
+<!--                    <field name="price_total"/>-->
+<!--                    <field name="supplier_id"/>-->
+<!--                </xpath>-->
+                <xpath expr="///field[@name='amount_untaxed']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_tax']" position="before">
+                    <field name="new_subtotal"/>
+                    <field name="amount_untaxed" string="Subtotal Neto"/>
+                    <field name="amount_discount"/>
+                </xpath>
+
+
+<!--                tree changes-->
+                <xpath expr="//field[@name='order_line']//tree" position="attributes">
+                        <attribute name="editable"/>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']//tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree/field[@name='product_uom_qty']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='price_subtotal'][1]" position="attributes">
+                    <attribute name="string">Precio final</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree/field[@name='price_unit']" position="after">
+                    <field name="price_cost"/>
+                    <field name="new_qty"/>
+                    <field name="pax_days_hours"/>
+                    <field name="product_uom_qty" string="Cantidad total"/>
+                    <field name="new_subtotal"/>
+                    <field name="supplier_tax_id" options="{'no_create': True}"/>
+                    <field name="iva_tax_amount"/>
+                    <field name="cost_iva_tax_amount"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree/field[@name='tax_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree/field[@name='discount']" position="after">
+                    <field name="fee_profit"/>
+                    <field name="amount_fee"/>
+                    <field name="tax_id"/>
+                    <field name="price_unit" string="Precio unidad final"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree/field[@name='price_subtotal']" position="after">
+<!--                    <field name="price_tax"/>-->
+<!--                    <field name="price_total"/>-->
+                    <field name="supplier_id"/>
+                </xpath>
+                <xpath expr="//div[@name='invoice_lines']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='amount_total']" position="attributes">
+                    <attribute name="string">Total final</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
